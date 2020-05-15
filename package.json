@@ -69,6 +69,7 @@
     "Edward Silverton <e.silverton@gmail.com>"
   ],
   "scripts": {
+    "build": "node-gyp configure && node-gyp build",
     "install": "(node install/libvips && node install/dll-copy && prebuild-install --runtime=napi) || (node-gyp rebuild && node install/dll-copy)",
     "clean": "rm -rf node_modules/ build/ vendor/ .nyc_output/ coverage/ test/fixtures/output.*",
     "test": "semistandard && cpplint && npm run test-unit && npm run test-licensing && prebuild-ci",

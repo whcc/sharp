@@ -73,7 +73,8 @@
       'src/operations.cc',
       'src/pipeline.cc',
       'src/utilities.cc',
-      'src/sharp.cc'
+      'src/sharp.cc',
+      'src/example.cc'
     ],
     'include_dirs': [
       '<!@(node -p "require(\'node-addon-api\').include")',
