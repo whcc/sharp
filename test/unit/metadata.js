@@ -64,6 +64,34 @@ describe('Image metadata', function () {
     });
   });
 
+  it('JPEG with AdobeRGB color profile', function (done) {
+    sharp(fixtures.inputJpgAdobeRGB).metadata(function (err, metadata) {
+      if (err) throw err;
+      assert.strictEqual('jpeg', metadata.format);
+      // ICC
+      assert.strictEqual('object', typeof metadata.icc);
+      assert.strictEqual(true, metadata.icc instanceof Buffer);
+      const profile = icc.parse(metadata.icc);
+      assert.strictEqual('object', typeof profile);
+      assert.strictEqual('Adobe RGB (1998)', profile.description);
+      done();
+    });
+  });
+
+  it('JPEG with P3 color profile', function (done) {
+    sharp(fixtures.inputJpgP3).metadata(function (err, metadata) {
+      if (err) throw err;
+      assert.strictEqual('jpeg', metadata.format);
+      // ICC
+      assert.strictEqual('object', typeof metadata.icc);
+      assert.strictEqual(true, metadata.icc instanceof Buffer);
+      const profile = icc.parse(metadata.icc);
+      assert.strictEqual('object', typeof profile);
+      assert.strictEqual('Display P3', profile.description);
+      done();
+    });
+  });
+
   it('JPEG with IPTC/XMP', function (done) {
     sharp(fixtures.inputJpgWithIptcAndXmp).metadata(function (err, metadata) {
       if (err) throw err;
