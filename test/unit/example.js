@@ -6,6 +6,13 @@ const fixtures = require('../fixtures');
 
 describe('Example', function () {
   it('Returns a colorspace', function () {
-    assert.strictEqual('srgb', sharp(fixtures.inputJpgWithPortraitExif1).guessColorspace());
+    const space = sharp(fixtures.inputJpgAdobeRGB).guessColorspace();
+    assert.strictEqual('srgb', space);
+  });
+
+  it('Can output an sRGB with a custom color profile.', function (done) {
+    sharp(fixtures.inputJpgAdobeRGB)
+      .withMetadata()
+      .toFile(fixtures.path('output-asrgb1.jpg'), done);
   });
 });
